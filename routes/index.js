@@ -5,7 +5,7 @@ const { authRoute } = require("./auth.route");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.json("hello dari api");
+  res.json("This is simple todolist api");
 });
 
 router.use("/user", userRoute);

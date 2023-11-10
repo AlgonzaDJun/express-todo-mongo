@@ -4,6 +4,12 @@ const jwt = require("jsonwebtoken");
 const login = async (req, res) => {
   const data = req.body;
 
+  const { email, password } = data;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "semua field harus diisi" });
+  }
+
   const user = await User.findOne({ email: data.email });
 
   if (!user) {
@@ -17,7 +23,7 @@ const login = async (req, res) => {
   const token = jwt.sign({ id: user._id, email: user.email }, "secret");
 
   // set req.headers.authorization
-  req.headers.authorization = `Bearer ${token}`;
+  res.setHeader("authorization", `Bearer ${token}`);
 
   res.status(200).json({
     message: "berhasil login",
