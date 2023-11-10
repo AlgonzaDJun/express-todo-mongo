@@ -101,9 +101,59 @@ const editTodo = async (req, res) => {
   }
 };
 
+const deleteTodo = async (req, res) => {
+  const todoId = req.params.todo_id;
+
+  console.log(todoId);
+  try {
+    const todo = await Todo.findByIdAndDelete(todoId);
+
+    if (!todo) {
+      return res.status(400).json({
+        message: "todo tidak ditemukan",
+        data: null,
+      });
+    }
+
+    res.status(200).json({
+      message: "berhasil menghapus todo",
+      data: todo,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "gagal menghapus todo",
+      error: error.message,
+    });
+  }
+};
+
+const deleteAllTodo = async (req, res) => {
+  const userId = req.user.id;
+
+  console.log('adfsn')
+  // console.log(userId)
+  try {
+    const todo = await Todo.deleteMany({
+      userID: userId,
+    });
+
+    res.json({
+      message: "berhasil menghapus semua todo",
+      data: todo,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "gagal menghapus todo",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   createTodo,
   getTodoByUserId,
   getTodoById,
   editTodo,
+  deleteTodo,
+  deleteAllTodo,
 };
