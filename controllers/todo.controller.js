@@ -48,7 +48,62 @@ const getTodoByUserId = async (req, res) => {
   }
 };
 
+const getTodoById = async (req, res) => {
+  const todoId = req.params.todo_id;
+
+  try {
+    const todo = await Todo.findById(todoId);
+
+    if (!todo) {
+      return res.status(400).json({
+        message: "todo tidak ditemukan",
+        data: null,
+      });
+    }
+
+    res.status(200).json({
+      message: "berhasil mendapatkan todo",
+      data: todo,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "gagal mendapatkan todo",
+      error: error.message,
+    });
+  }
+};
+
+const editTodo = async (req, res) => {
+  const todoId = req.params.todo_id;
+  const data = req.body;
+
+  try {
+    const todo = await Todo.findByIdAndUpdate(todoId, data, {
+      new: true,
+    });
+
+    if (!todo) {
+      res.status(400).json({
+        message: "todo tidak ditemukan",
+        data: null,
+      });
+    }
+
+    res.json({
+      message: "berhasil mengubah todo",
+      data: todo,
+    });
+  } catch (error) {
+    res.json({
+      message: "gagal mengubah todo",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   createTodo,
   getTodoByUserId,
+  getTodoById,
+  editTodo,
 };
