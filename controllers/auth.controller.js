@@ -26,13 +26,24 @@ const login = async (req, res) => {
   });
 };
 
-const register = async (arg) => {
+const register = async (req, res) => {
   let data = req.body;
 
   const { name, username, email, password } = data;
 
   if (!name || !username || !email || !password) {
-    return res.json({ message: "semua field harus diisi" });
+    return res.status(400).json({ message: "semua field harus diisi" });
+  }
+
+  const checkEmail = await User.findOne({ email: data.email });
+  const checkUserName = await User.findOne({ username: data.username });
+
+  if (checkEmail) {
+    return res.status(400).json({ message: "email sudah digunakan" });
+  }
+
+  if (checkUserName) {
+    return res.status(400).json({ message: "username sudah digunakan" });
   }
 
   try {
@@ -52,5 +63,5 @@ const register = async (arg) => {
 
 module.exports = {
   login,
-  register
+  register,
 };

@@ -10,14 +10,17 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 db.then(() => {
-  console.log("berhasil koneksi");
+  console.log("Mongodb Connected");
 }).catch(() => {
-  console.log("gagal konseksi");
+  console.log("Mongodb not connected");
 });
 
-app.use(express.json());
+// apply global middleware
 app.use(cors());
+app.use(express.json());
+
+
 app.use(allRouter);
 app.listen(port, () => {
-  console.log(`server running on port ${port}`);
+  console.log(`server running on http://localhost:${port}`);
 });
