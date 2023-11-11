@@ -53,7 +53,7 @@
 #### Read todo detail by id
 
 ```http
-  GET /todo/:id
+  GET /todo/${id}
 ```
 
 | headers | value                |
