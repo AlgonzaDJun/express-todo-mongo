@@ -129,8 +129,6 @@ const deleteTodo = async (req, res) => {
 
 const deleteAllTodo = async (req, res) => {
   const userId = req.user.id;
-
-  console.log('adfsn')
   // console.log(userId)
   try {
     const todo = await Todo.deleteMany({

@@ -10,26 +10,33 @@ const login = async (req, res) => {
     return res.status(400).json({ message: "semua field harus diisi" });
   }
 
-  const user = await User.findOne({ email: data.email });
+  try {
+    const user = await User.findOne({ email: data.email });
 
-  if (!user) {
-    return res.json({ message: "email tidak ditemukan" });
+    if (!user) {
+      return res.json({ message: "email tidak ditemukan" });
+    }
+
+    if (user.password !== data.password) {
+      return res.json({ message: "password salah" });
+    }
+
+    const token = jwt.sign({ id: user._id, email: user.email }, "secret");
+
+    // set req.headers.authorization
+    res.setHeader("authorization", `Bearer ${token}`);
+
+    res.status(200).json({
+      message: "berhasil login",
+      token,
+      userID: user._id,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "gagal login",
+      error: error.message,
+    });
   }
-
-  if (user.password !== data.password) {
-    return res.json({ message: "password salah" });
-  }
-
-  const token = jwt.sign({ id: user._id, email: user.email }, "secret");
-
-  // set req.headers.authorization
-  res.setHeader("authorization", `Bearer ${token}`);
-
-  res.status(200).json({
-    message: "berhasil login",
-    token,
-    userID: user._id,
-  });
 };
 
 const register = async (req, res) => {

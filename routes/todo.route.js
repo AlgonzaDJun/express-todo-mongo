@@ -17,7 +17,7 @@ route.get("/", authMiddleware, getTodoByUserId);
 route.get("/:todo_id", authMiddleware, getTodoById);
 route.put("/:todo_id", authMiddleware, editTodo);
 route.delete("/:todo_id", authMiddleware, deleteTodo);
-route.delete("/delete-all", authMiddleware, deleteAllTodo);
+route.post("/delete_all", authMiddleware, deleteAllTodo);
 
 module.exports = {
   todoRoute: route,
