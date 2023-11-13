@@ -36,7 +36,7 @@
 
 | headers | value                |
 | :-------- | :------------------------- |
-| `authorization` | `Token` |
+| `authorization` | `"Bearer" + Token` |
 
 
 #### Read All todo by userID
@@ -47,7 +47,7 @@
 
 | headers | value                |
 | :-------- | :------------------------- |
-| `authorization` | `JWT Token` |
+| `authorization` | `"Bearer" + JWT Token` |
 
 
 #### Read todo detail by id
@@ -58,7 +58,7 @@
 
 | headers | value                |
 | :-------- | :------------------------- |
-| `authorization` | `JWT Token` |
+| `authorization` | `"Bearer" + JWT Token` |
 
 | params | value                |
 | :-------- | :------------------------- |
@@ -76,7 +76,7 @@
 
 | Headers |  value                       |
 | :-------- |  :-------------------------------- |
-| `authorization` |  JWT Token |
+| `authorization` |  "Bearer" + JWT Token |
 
 
 | Body | Type     | Description                       |
@@ -96,7 +96,7 @@
 
 | Headers |  value                       |
 | :-------- |  :-------------------------------- |
-| `authorization` |  JWT Token |
+| `authorization` | "Bearer" + JWT Token |
 
 
 #### Delete All Todo
@@ -107,5 +107,5 @@
 
 | Headers |  value                       |
 | :-------- |  :-------------------------------- |
-| `authorization` |  JWT Token |
+| `authorization` | "Bearer" + JWT Token |
 
